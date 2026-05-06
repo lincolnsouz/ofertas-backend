@@ -73,7 +73,7 @@ export const db = {
 
   addMember: (member) => {
     const members = db.getMembers()
-    const newMember = { ...member, id: Date.now().toString(), createdAt: new Date().toISOString(), active: true }
+    const newMember = { ...member, id: Date.now().toString(), createdAt: new Date().toISOString(), active: true, expiresAt: member.expiresAt || '' }
     members.unshift(newMember)
     db.saveMembers(members)
     return newMember

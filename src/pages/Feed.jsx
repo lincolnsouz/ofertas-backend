@@ -147,7 +147,7 @@ export default function Feed() {
         {grouped.length === 0 ? (
           <div style={styles.empty}>
             <div style={{ fontSize: '52px' }}>📭</div>
-            <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '12px', fontFamily: 'Verdana', fontWeight: 600 }}>
+            <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '12px', fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>
               Nenhuma oferta encontrada.
             </p>
           </div>
@@ -182,7 +182,7 @@ const styles = {
     display: 'flex', alignItems: 'center', gap: '8px',
     background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)',
     color: 'white', padding: '6px 14px', borderRadius: '20px',
-    fontSize: '13px', fontFamily: 'Verdana', fontWeight: 700, cursor: 'pointer',
+    fontSize: '13px', fontFamily: "'DM Sans', sans-serif", fontWeight: 700, cursor: 'pointer',
   },
   profileAvatar: {
     width: '24px', height: '24px', borderRadius: '50%',
@@ -192,7 +192,7 @@ const styles = {
   logoutBtn: {
     background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.25)',
     color: 'rgba(255,255,255,0.7)', padding: '6px 14px', borderRadius: '20px',
-    fontSize: '12px', fontFamily: 'Verdana', cursor: 'pointer',
+    fontSize: '12px', fontFamily: "'DM Sans', sans-serif", cursor: 'pointer',
   },
   logo: { width: '120px', marginBottom: '16px', filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.4))' },
   socialRow: { display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '20px' },
@@ -202,7 +202,7 @@ const styles = {
     justifyContent: 'center', fontSize: '22px', cursor: 'pointer',
   },
   heroTitle: {
-    fontFamily: 'Verdana, sans-serif', fontWeight: 700,
+    fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
     fontSize: 'clamp(18px, 4vw, 38px)', color: 'white',
     letterSpacing: '0.04em', textTransform: 'uppercase',
     marginBottom: '12px', textShadow: '0 2px 16px rgba(0,0,0,0.3)',
@@ -211,29 +211,29 @@ const styles = {
     display: 'inline-block', background: 'rgba(255,255,255,0.2)',
     border: '1px solid rgba(255,255,255,0.4)', color: 'white',
     padding: '6px 20px', borderRadius: '20px', fontSize: '13px',
-    fontFamily: 'Verdana', fontWeight: 700, marginBottom: '16px',
+    fontFamily: "'DM Sans', sans-serif", fontWeight: 700, marginBottom: '16px',
   },
   filterBox: {
     background: 'rgba(0,0,0,0.2)', borderRadius: '16px', padding: '16px 20px',
     maxWidth: '860px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px',
   },
   filterRow: { display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' },
-  filterLabel: { color: 'rgba(255,255,255,0.7)', fontFamily: 'Verdana', fontSize: '12px', fontWeight: 700, minWidth: '90px', textAlign: 'left' },
+  filterLabel: { color: 'rgba(255,255,255,0.7)', fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 700, minWidth: '90px', textAlign: 'left' },
   filterGroup: { display: 'flex', gap: '6px', flexWrap: 'wrap' },
   filterBtn: {
     padding: '6px 14px', border: '2px solid rgba(255,255,255,0.3)',
     borderRadius: '24px', background: 'rgba(255,255,255,0.1)',
     color: 'rgba(255,255,255,0.85)', fontSize: '11px',
-    fontFamily: 'Verdana', fontWeight: 700, cursor: 'pointer',
+    fontFamily: "'DM Sans', sans-serif", fontWeight: 700, cursor: 'pointer',
   },
   filterOn: { background: 'white', borderColor: 'white', color: '#6B21D6' },
   dateInput: {
     background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.4)',
-    borderRadius: '8px', padding: '5px 10px', color: 'white', fontSize: '12px', fontFamily: 'Verdana', outline: 'none',
+    borderRadius: '8px', padding: '5px 10px', color: 'white', fontSize: '12px', fontFamily: "'DM Sans', sans-serif", outline: 'none',
   },
   btnFilter: {
     background: 'white', color: '#6B21D6', border: 'none',
-    padding: '10px 36px', borderRadius: '24px', fontFamily: 'Verdana',
+    padding: '10px 36px', borderRadius: '24px', fontFamily: "'DM Sans', sans-serif",
     fontWeight: 700, fontSize: '13px', cursor: 'pointer', letterSpacing: '0.05em',
   },
   main: { maxWidth: '1200px', margin: '0 auto', padding: '0 20px 60px' },
@@ -241,6 +241,6 @@ const styles = {
   group: { marginBottom: '48px' },
   dateDivider: { display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' },
   dateLine: { flex: 1, height: '2px', background: 'rgba(255,255,255,0.25)', borderRadius: '1px' },
-  dateLabel: { fontFamily: 'Verdana', fontWeight: 700, fontSize: '14px', color: 'white', letterSpacing: '0.06em', whiteSpace: 'nowrap' },
+  dateLabel: { fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: '14px', color: 'white', letterSpacing: '0.06em', whiteSpace: 'nowrap' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' },
 }

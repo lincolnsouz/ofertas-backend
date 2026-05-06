@@ -15,7 +15,7 @@ export default function Admin() {
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(EMPTY)
-  const [newMember, setNewMember] = useState({ name: '', email: '', password: '' })
+  const [newMember, setNewMember] = useState({ name: '', email: '', password: '', expiresAt: '' })
   const [saved, setSaved] = useState(false)
   const fileRef = useRef()
 
@@ -49,7 +49,7 @@ export default function Admin() {
 
   const addMember = () => {
     if (!newMember.email || !newMember.password) { alert('Email e senha obrigatórios'); return }
-    db.addMember(newMember); setNewMember({ name: '', email: '', password: '' }); reload()
+    db.addMember(newMember); setNewMember({ name: '', email: '', password: '', expiresAt: '' }); reload()
   }
 
   const stats = {
@@ -185,10 +185,11 @@ export default function Admin() {
             </div>
             <div style={s.formCard}>
               <h3 style={{...s.formTitle,marginBottom:'16px'}}>Adicionar membro</h3>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr auto',gap:'10px',alignItems:'end'}}>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr auto',gap:'10px',alignItems:'end'}}>
                 <div><label style={s.label}>Nome</label><input style={s.input} placeholder="Nome" value={newMember.name} onChange={e => setNewMember(m=>({...m,name:e.target.value}))} /></div>
                 <div><label style={s.label}>Email</label><input style={s.input} placeholder="email@..." type="email" value={newMember.email} onChange={e => setNewMember(m=>({...m,email:e.target.value}))} /></div>
                 <div><label style={s.label}>Senha</label><input style={s.input} placeholder="senha123" value={newMember.password} onChange={e => setNewMember(m=>({...m,password:e.target.value}))} /></div>
+                <div><label style={s.label}>Vencimento</label><input style={s.input} type="date" value={newMember.expiresAt} onChange={e => setNewMember(m=>({...m,expiresAt:e.target.value}))} /></div>
                 <button className="btn-primary" onClick={addMember} style={{borderRadius:'8px',padding:'10px 16px',whiteSpace:'nowrap'}}>+ Adicionar</button>
               </div>
             </div>
@@ -206,7 +207,7 @@ export default function Admin() {
                     <div style={{fontSize:'12px',color:'#9ca3af'}}>{new Date(m.createdAt).toLocaleDateString('pt-BR')}</div>
                     <span style={{
                       padding:'3px 10px',borderRadius:'20px',fontSize:'11px',fontWeight:700,
-                      fontFamily:"'Montserrat',sans-serif",
+                      fontFamily:"'Plus Jakarta Sans', sans-serif",
                       background:m.active?'#dcfce7':'#fee2e2',
                       color:m.active?'#15803d':'#dc2626',
                     }}>{m.active?'Ativo':'Suspenso'}</span>
@@ -229,29 +230,29 @@ const s = {
   page: { minHeight:'100vh', background:'#f3f4f6' },
   header: { background:'var(--purple)', borderBottom:'3px solid rgba(255,255,255,0.1)', position:'sticky', top:0, zIndex:100 },
   headerIn: { maxWidth:'1200px', margin:'0 auto', padding:'14px 24px', display:'flex', alignItems:'center', justifyContent:'space-between' },
-  logo: { fontFamily:"'Montserrat',sans-serif", fontWeight:900, fontSize:'20px', color:'white', letterSpacing:'0.08em', display:'flex', alignItems:'center', gap:'10px' },
+  logo: { fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:900, fontSize:'20px', color:'white', letterSpacing:'0.08em', display:'flex', alignItems:'center', gap:'10px' },
   adminTag: { background:'rgba(255,255,255,0.2)', color:'white', padding:'2px 10px', borderRadius:'20px', fontSize:'11px', fontWeight:700, letterSpacing:'0.1em' },
-  logoutBtn: { background:'rgba(255,255,255,0.15)', border:'1px solid rgba(255,255,255,0.3)', color:'white', padding:'6px 16px', borderRadius:'20px', fontSize:'12px', fontFamily:"'Montserrat',sans-serif", fontWeight:600 },
+  logoutBtn: { background:'rgba(255,255,255,0.15)', border:'1px solid rgba(255,255,255,0.3)', color:'white', padding:'6px 16px', borderRadius:'20px', fontSize:'12px', fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:600 },
   statsRow: { maxWidth:'1200px', margin:'0 auto', padding:'24px 24px 0', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'12px' },
   statCard: { background:'white', borderRadius:'12px', padding:'16px 20px', boxShadow:'0 1px 4px rgba(0,0,0,0.08)' },
-  statVal: { fontFamily:"'Montserrat',sans-serif", fontWeight:800, fontSize:'28px' },
+  statVal: { fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:800, fontSize:'28px' },
   statLabel: { fontSize:'12px', color:'#9ca3af', marginTop:'2px', fontWeight:500 },
   tabs: { maxWidth:'1200px', margin:'20px auto 0', padding:'0 24px', display:'flex', gap:'4px', borderBottom:'2px solid #e5e7eb' },
-  tabBtn: { padding:'10px 20px', border:'none', borderBottom:'3px solid transparent', background:'transparent', color:'#9ca3af', fontFamily:"'Montserrat',sans-serif", fontWeight:700, fontSize:'14px', cursor:'pointer', marginBottom:'-2px' },
+  tabBtn: { padding:'10px 20px', border:'none', borderBottom:'3px solid transparent', background:'transparent', color:'#9ca3af', fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:700, fontSize:'14px', cursor:'pointer', marginBottom:'-2px' },
   tabActive: { color:'var(--purple)', borderBottomColor:'var(--purple)' },
   main: { maxWidth:'1200px', margin:'0 auto', padding:'24px' },
   actionRow: { display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'20px' },
-  sectionTitle: { fontFamily:"'Montserrat',sans-serif", fontWeight:800, fontSize:'20px', color:'#111' },
+  sectionTitle: { fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:800, fontSize:'20px', color:'#111' },
   formCard: { background:'white', borderRadius:'16px', padding:'24px', marginBottom:'24px', boxShadow:'0 2px 8px rgba(0,0,0,0.08)' },
-  formTitle: { fontFamily:"'Montserrat',sans-serif", fontWeight:700, fontSize:'16px', marginBottom:'20px', color:'#111' },
+  formTitle: { fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:700, fontSize:'16px', marginBottom:'20px', color:'#111' },
   formGrid: { display:'grid', gridTemplateColumns:'1fr 1fr', gap:'24px' },
-  label: { display:'block', fontSize:'12px', color:'#374151', fontWeight:600, fontFamily:"'Montserrat',sans-serif", marginBottom:'4px' },
+  label: { display:'block', fontSize:'12px', color:'#374151', fontWeight:600, fontFamily:"'Plus Jakarta Sans', sans-serif", marginBottom:'4px' },
   input: { background:'#f9fafb', border:'1.5px solid #e5e7eb', borderRadius:'8px', padding:'9px 12px', color:'#111', fontSize:'13px', outline:'none', width:'100%' },
   imgUpload: { height:'160px', background:'#f9fafb', border:'2px dashed #d1d5db', borderRadius:'10px', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden', marginBottom:'8px' },
-  cancelBtn: { background:'transparent', border:'1.5px solid #d1d5db', color:'#6b7280', padding:'10px 20px', borderRadius:'8px', fontSize:'13px', fontFamily:"'Montserrat',sans-serif", fontWeight:600 },
+  cancelBtn: { background:'transparent', border:'1.5px solid #d1d5db', color:'#6b7280', padding:'10px 20px', borderRadius:'8px', fontSize:'13px', fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:600 },
   grid: { display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(300px,1fr))', gap:'20px' },
   empty: { color:'#9ca3af', fontSize:'14px', padding:'40px', textAlign:'center', gridColumn:'1/-1' },
   memberItem: { background:'white', borderRadius:'12px', padding:'14px 16px', display:'flex', alignItems:'center', gap:'14px', boxShadow:'0 1px 4px rgba(0,0,0,0.06)' },
-  avatar: { width:'38px', height:'38px', borderRadius:'50%', background:'#ede9fe', color:'var(--purple)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Montserrat',sans-serif", fontWeight:800, fontSize:'15px', flexShrink:0 },
-  mBtn: { background:'transparent', border:'1.5px solid #e5e7eb', color:'#6b7280', padding:'5px 12px', borderRadius:'6px', fontSize:'12px', fontFamily:"'Montserrat',sans-serif", fontWeight:600 },
+  avatar: { width:'38px', height:'38px', borderRadius:'50%', background:'#ede9fe', color:'var(--purple)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:800, fontSize:'15px', flexShrink:0 },
+  mBtn: { background:'transparent', border:'1.5px solid #e5e7eb', color:'#6b7280', padding:'5px 12px', borderRadius:'6px', fontSize:'12px', fontFamily:"'Plus Jakarta Sans', sans-serif", fontWeight:600 },
 }

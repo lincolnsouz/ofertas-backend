@@ -118,7 +118,7 @@ export default function OfferCard({ offer, isAdmin, onEdit, onDelete, onPublish,
 
 const styles = {
   card: {
-    fontFamily: 'Verdana, sans-serif',
+    fontFamily: "'DM Sans', sans-serif",
     background: '#f9f9f9',
     borderRadius: '8px',
     textAlign: 'center',
@@ -146,7 +146,7 @@ const styles = {
   topBadges: { position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '6px', flexWrap: 'wrap' },
   badge: {
     padding: '3px 9px', borderRadius: '20px', fontSize: '10px',
-    fontWeight: 700, fontFamily: 'Verdana', letterSpacing: '0.03em',
+    fontWeight: 700, fontFamily: "'DM Sans', sans-serif", letterSpacing: '0.03em',
   },
   favBtn: {
     position: 'absolute', top: '10px', right: '10px',
@@ -165,6 +165,6 @@ const styles = {
     display: 'block', width: '100%', padding: '12px 20px',
     fontSize: '14px', color: '#fff', background: '#ff4d4d',
     border: 'none', borderRadius: '5px', fontWeight: 700,
-    fontFamily: 'Verdana, sans-serif', cursor: 'pointer',
+    fontFamily: "'DM Sans', sans-serif", cursor: 'pointer',
   },
 }

@@ -75,7 +75,7 @@ const styles = {
   },
   logoWrap: { textAlign: 'center', marginBottom: '28px' },
   logo: { width: '130px', filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.5))' },
-  sub: { color: 'rgba(255,255,255,0.75)', fontSize: '14px', marginTop: '8px', fontFamily: 'Verdana' },
+  sub: { color: 'rgba(255,255,255,0.75)', fontSize: '14px', marginTop: '8px', fontFamily: "'DM Sans', sans-serif" },
   card: {
     background: 'white', borderRadius: '20px', padding: '32px 28px',
     width: '100%', maxWidth: '400px',
@@ -87,13 +87,13 @@ const styles = {
   },
   tabBtn: {
     flex: 1, padding: '9px', border: 'none', background: 'transparent',
-    color: '#9ca3af', fontFamily: 'Verdana', fontWeight: 700,
+    color: '#9ca3af', fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
     fontSize: '12px', borderRadius: '7px', cursor: 'pointer', transition: 'all 0.2s',
   },
   tabOn: { background: 'white', color: '#6B21D6', boxShadow: '0 1px 4px rgba(0,0,0,0.12)' },
   form: { display: 'flex', flexDirection: 'column', gap: '16px' },
   field: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  label: { fontSize: '13px', color: '#374151', fontWeight: 700, fontFamily: 'Verdana' },
+  label: { fontSize: '13px', color: '#374151', fontWeight: 700, fontFamily: "'DM Sans', sans-serif" },
   input: {
     background: '#f9fafb', border: '1.5px solid #e5e7eb',
     borderRadius: '10px', padding: '11px 14px',
@@ -108,8 +108,8 @@ const styles = {
     background: 'linear-gradient(180deg, #7B2FE8 0%, #5518B0 100%)',
     color: 'white', border: 'none', padding: '14px',
     borderRadius: '10px', fontSize: '15px', fontWeight: 700,
-    fontFamily: 'Verdana', cursor: 'pointer', marginTop: '4px',
+    fontFamily: "'DM Sans', sans-serif", cursor: 'pointer', marginTop: '4px',
     boxShadow: '0 4px 16px rgba(107,33,214,0.4)',
   },
-  join: { textAlign: 'center', color: '#9ca3af', fontSize: '13px', marginTop: '20px', fontFamily: 'Verdana' },
+  join: { textAlign: 'center', color: '#9ca3af', fontSize: '13px', marginTop: '20px', fontFamily: "'DM Sans', sans-serif" },
 }
