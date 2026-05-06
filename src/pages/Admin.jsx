@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
-import { db, CATEGORIES, COUNTRIES } from '../lib/db'
+import { db, CATEGORIES, COUNTRIES, FORMATS } from '../lib/db'
 import OfferCard from '../components/OfferCard'
 
-const EMPTY = { title: '', imageUrl: '', adsCount: '', country: 'US', category: 'NUTRA', linkDirect: '', linkNoCloaker: '', offerDate: new Date().toISOString().split('T')[0] }
+const EMPTY = { title: '', imageUrl: '', adsCount: '', country: 'US', category: 'NUTRA', format: 'VSL', linkDirect: '', linkNoCloaker: '', offerDate: new Date().toISOString().split('T')[0] }
 
 export default function Admin() {
   const { user, logout } = useAuth()
@@ -124,6 +124,12 @@ export default function Admin() {
                     <div>
                       <label style={s.label}>📅 Data da oferta</label>
                       <input style={s.input} type="date" value={form.offerDate} onChange={e => setForm(f=>({...f,offerDate:e.target.value}))} />
+                    </div>
+                    <div>
+                      <label style={s.label}>Formato da página</label>
+                      <select style={s.input} value={form.format} onChange={e => setForm(f=>({...f,format:e.target.value}))}>
+                        {FORMATS.map(fmt => <option key={fmt} value={fmt}>{fmt}</option>)}
+                      </select>
                     </div>
                     <div>
                       <label style={s.label}>Nº de anúncios ativos</label>

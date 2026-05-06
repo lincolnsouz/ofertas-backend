@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './lib/auth'
 import Login from './pages/Login'
 import Feed from './pages/Feed'
 import Admin from './pages/Admin'
+import Profile from './pages/Profile'
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth()
@@ -18,12 +19,9 @@ function AppRoutes() {
       <Route path="/" element={
         user ? <Navigate to={user.role === 'admin' ? '/admin' : '/feed'} /> : <Login />
       } />
-      <Route path="/feed" element={
-        <ProtectedRoute><Feed /></ProtectedRoute>
-      } />
-      <Route path="/admin" element={
-        <ProtectedRoute role="admin"><Admin /></ProtectedRoute>
-      } />
+      <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+      <Route path="/perfil" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path="/admin" element={<ProtectedRoute role="admin"><Admin /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
