@@ -1,68 +1,93 @@
+import { useEffect, useRef } from 'react'
 import { COUNTRIES } from '../lib/db'
 
 export default function OfferCard({ offer, isAdmin, onEdit, onDelete, onPublish }) {
   const country = COUNTRIES.find(c => c.code === offer.country)
+  const adsCount = parseInt(offer.adsCount) || 0
+  const fillRef = useRef()
+
+  useEffect(() => {
+    const fill = fillRef.current
+    if (!fill) return
+    const pct = Math.min(100, Math.max(10, adsCount / 30))
+    setTimeout(() => {
+      fill.style.transition = 'width 1.2s ease'
+      fill.style.width = pct + '%'
+    }, 200)
+  }, [adsCount])
+
+  const getGradient = () => {
+    const pct = Math.min(100, adsCount / 30)
+    if (pct < 30) return 'linear-gradient(90deg, #22c55e, #86efac)'
+    if (pct < 70) return 'linear-gradient(90deg, #f59e0b, #fcd34d)'
+    return 'linear-gradient(90deg, #ef4444, #f97316)'
+  }
 
   return (
     <div style={styles.card}>
       {isAdmin && (
         <div style={styles.adminBar}>
-          <span style={{
-            ...styles.statusBadge,
-            background: offer.published ? 'rgba(34,197,94,0.12)' : 'rgba(249,115,22,0.12)',
-            color: offer.published ? '#22c55e' : '#f97316',
-            border: `1px solid ${offer.published ? 'rgba(34,197,94,0.2)' : 'rgba(249,115,22,0.2)'}`,
-          }}>
+          <span style={{ color: offer.published ? '#16a34a' : '#d97706', fontSize: '12px', fontWeight: 700 }}>
             {offer.published ? '● Publicado' : '○ Rascunho'}
           </span>
-          <div style={styles.adminActions}>
-            <button style={styles.adminBtn} onClick={() => onPublish(offer)}>
-              {offer.published ? 'Despublicar' : 'Publicar'}
-            </button>
-            <button style={styles.adminBtn} onClick={() => onEdit(offer)}>Editar</button>
-            <button style={{...styles.adminBtn, color:'#f87171'}} onClick={() => onDelete(offer.id)}>Excluir</button>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            <button style={styles.aBtn} onClick={() => onPublish(offer)}>{offer.published ? 'Despublicar' : 'Publicar'}</button>
+            <button style={styles.aBtn} onClick={() => onEdit(offer)}>Editar</button>
+            <button style={{ ...styles.aBtn, color: '#dc2626' }} onClick={() => onDelete(offer.id)}>✕</button>
           </div>
         </div>
       )}
 
-      <div style={styles.imageWrap}>
-        {offer.imageUrl ? (
-          <img src={offer.imageUrl} alt={offer.title} style={styles.image} />
-        ) : (
-          <div style={styles.imagePlaceholder}>
-            <span style={{fontSize:'32px'}}>📊</span>
-          </div>
+      <div style={styles.inner}>
+        {offer.imageUrl && (
+          <img src={offer.imageUrl} alt="oferta" style={styles.image} />
         )}
-        <div style={styles.categoryBadge} className={`badge badge-${offer.category === 'NUTRA' ? 'nutra' : 'info'}`}>
-          {offer.category}
-        </div>
-      </div>
 
-      <div style={styles.body}>
-        <div style={styles.stats}>
-          <span style={styles.fire}>🔥 {offer.adsCount?.toLocaleString()} anúncios ativos 🔥</span>
-          <span style={styles.flag}>{country?.flag || '🌎'}</span>
-        </div>
+        <h2 style={styles.adsTitle}>🔥 {adsCount.toLocaleString('pt-BR')} anúncios ativos 🔥</h2>
 
-        <div style={styles.scaleBadge}>
-          <span style={{color:'#f97316', fontSize:'13px'}}>🚀</span>
-          <span style={styles.scaleText}>Escaladíssima!</span>
+        <div style={{ margin: '8px 0' }}>
+          {country ? (
+            <img
+              src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
+              alt={country.name}
+              style={{ width: '40px', borderRadius: '3px' }}
+            />
+          ) : <span style={{ fontSize: '28px' }}>🌎</span>}
         </div>
 
-        <div style={styles.progressBar}>
-          <div style={{...styles.progressFill, width: Math.min(100, (offer.adsCount / 30)) + '%'}} />
+        <p style={styles.scaleText}>🌡️ Escaladíssima!</p>
+
+        <div style={styles.thermWrap}>
+          <div style={styles.thermBg}>
+            <div ref={fillRef} style={{ height: '100%', width: '0%', borderRadius: '15px', background: getGradient() }} />
+          </div>
         </div>
 
-        <div style={styles.buttons}>
-          <a href={offer.linkDirect} target="_blank" rel="noreferrer">
-            <button className="btn-orange" style={{marginBottom:'8px'}}>ACESSAR AGORA</button>
-          </a>
+        <div style={{ marginTop: '16px', width: '100%' }}>
+          {offer.linkDirect ? (
+            <a href={offer.linkDirect} target="_blank" rel="noreferrer" style={{ display: 'block', marginBottom: '10px' }}>
+              <button style={styles.btnOrange}>ACESSAR AGORA</button>
+            </a>
+          ) : (
+            <button style={{ ...styles.btnOrange, opacity: 0.5, marginBottom: '10px' }} disabled>ACESSAR AGORA</button>
+          )}
+
           {offer.linkNoCloaker && (
-            <a href={offer.linkNoCloaker} target="_blank" rel="noreferrer">
-              <button className="btn-ghost">ACESSAR SEM CLOACKER</button>
+            <a href={offer.linkNoCloaker} target="_blank" rel="noreferrer" style={{ display: 'block' }}>
+              <button style={styles.btnOrange}>ACESSAR PAGINA SEM CLOACKER</button>
             </a>
           )}
         </div>
+
+        {offer.category && (
+          <div style={{
+            position: 'absolute', top: '12px', right: '12px',
+            background: offer.category === 'NUTRA' ? '#dcfce7' : '#ede9fe',
+            color: offer.category === 'NUTRA' ? '#15803d' : '#6d28d9',
+            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 700,
+            fontFamily: 'Verdana, sans-serif',
+          }}>{offer.category}</div>
+        )}
       </div>
     </div>
   )
@@ -70,91 +95,50 @@ export default function OfferCard({ offer, isAdmin, onEdit, onDelete, onPublish 
 
 const styles = {
   card: {
-    background: 'var(--card)',
-    border: '1px solid var(--border)',
-    borderRadius: '16px',
+    fontFamily: 'Verdana, sans-serif',
+    background: '#f9f9f9',
+    borderRadius: '8px',
+    textAlign: 'center',
+    maxWidth: '400px',
+    margin: '0 auto',
+    boxShadow: 'inset 0 0 20px #ccc, 0 6px 12px rgba(0,0,0,0.5), 0 10px 15px rgba(0,0,0,0.6)',
+    border: '2px solid #444',
     overflow: 'hidden',
-    transition: 'border-color 0.2s, transform 0.2s',
-    display: 'flex',
-    flexDirection: 'column',
+    position: 'relative',
   },
   adminBar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px 14px',
-    background: 'var(--bg3)',
-    borderBottom: '1px solid var(--border)',
-    gap: '8px',
-    flexWrap: 'wrap',
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px 12px', background: '#f3f4f6', borderBottom: '1px solid #e5e7eb',
   },
-  statusBadge: {
-    padding: '3px 10px',
-    borderRadius: '20px',
-    fontSize: '11px',
-    fontWeight: 600,
-    fontFamily: 'var(--font-head)',
-    letterSpacing: '0.04em',
+  aBtn: {
+    background: 'transparent', border: '1px solid #d1d5db', color: '#374151',
+    padding: '3px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600,
   },
-  adminActions: { display: 'flex', gap: '8px' },
-  adminBtn: {
-    background: 'transparent',
-    border: '1px solid var(--border2)',
-    color: 'var(--text2)',
-    padding: '4px 10px',
-    borderRadius: '6px',
-    fontSize: '12px',
-    fontFamily: 'var(--font-head)',
-    fontWeight: 600,
-    transition: 'all 0.15s',
-  },
-  imageWrap: {
-    position: 'relative',
-    background: 'var(--bg2)',
-    height: '200px',
-    overflow: 'hidden',
+  inner: {
+    padding: '20px',
+    display: 'flex', flexDirection: 'column', alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
+    width: '100%', maxWidth: '300px', borderRadius: '8px', marginBottom: '10px',
   },
-  imagePlaceholder: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'var(--bg3)',
+  adsTitle: {
+    color: '#333', fontSize: '20px', fontWeight: 700, margin: '8px 0',
   },
-  categoryBadge: {
-    position: 'absolute',
-    top: '10px',
-    left: '10px',
-  },
-  body: { padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' },
-  stats: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  fire: { fontSize: '13px', color: 'var(--text)', fontWeight: 500 },
-  flag: { fontSize: '22px' },
-  scaleBadge: { display: 'flex', alignItems: 'center', gap: '6px' },
   scaleText: {
-    fontFamily: 'var(--font-head)',
-    fontWeight: 700,
-    fontSize: '15px',
-    color: '#f97316',
-    letterSpacing: '0.02em',
+    fontSize: '22px', color: '#ff4d4d', fontWeight: 700, margin: '10px 0 8px',
   },
-  progressBar: {
-    height: '4px',
-    background: 'var(--bg3)',
-    borderRadius: '2px',
-    overflow: 'hidden',
+  thermWrap: {
+    width: '100%', maxWidth: '400px', padding: '0',
   },
-  progressFill: {
-    height: '100%',
-    background: 'linear-gradient(90deg, #22c55e, #86efac)',
-    borderRadius: '2px',
-    minWidth: '20%',
+  thermBg: {
+    position: 'relative', width: '100%', height: '10px',
+    background: '#e0e0e0', borderRadius: '20px', overflow: 'hidden',
   },
-  buttons: { marginTop: '4px' },
+  btnOrange: {
+    display: 'block', width: '100%', padding: '12px 40px',
+    fontSize: '16px', color: '#fff', background: '#ff4d4d',
+    border: 'none', borderRadius: '5px', fontWeight: 700,
+    fontFamily: 'Verdana, sans-serif', cursor: 'pointer',
+    transition: 'opacity 0.2s',
+  },
 }
